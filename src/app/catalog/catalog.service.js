@@ -2,6 +2,14 @@ class CatalogService {
 
   /* @ngInject */
   constructor() {
+    const config = {
+      "apiKey": "${firebase.apiKey}",
+      "authDomain": "${firebase.authDomain}",
+      "databaseURL": "${firebase.databaseURL}",
+      "storageBucket": "${firebase.storageBucket}",
+      "messagingSenderId": "${firebase.messagingSenderId}"
+    };
+
     this.catalog = {
       items: [
         { sku: 'sku_1', name: 'name_1', price: '123.45' },
