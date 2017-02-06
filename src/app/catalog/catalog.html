@@ -1,0 +1,35 @@
+<md-list>
+  <md-subheader
+      class="catalog-line-header">
+    <div layout="row">
+      <div flex>
+        sku
+      </div>
+      <div flex>
+        Name
+      </div>
+      <div flex>
+        price
+     </div>
+    </div>
+  </md-subheader>
+  <md-list-item 
+      ng-repeat="item in $ctrl.items" 
+      class="catalog-line" ng-click="null">
+    <div flex layout="row">
+      <div flex>
+        {{item.sku}}
+      </div>
+      <div flex>
+        {{item.name}}
+      </div>
+      <div flex>
+        {{item.price}}
+      </div>
+    </div>
+  </md-list-item>
+</md-list>
+
+<md-button class="md-fab md-accent" ng-click="$ctrl.addItem()">
+  <md-icon>add</md-icon>
+</md-button>
