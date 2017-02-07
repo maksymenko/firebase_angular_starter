@@ -1,9 +1,19 @@
 class CatalogController {
   /* @ngInject */
-  constructor($mdToast, catalogService) {
+  constructor($mdToast, $state, catalogService) {
+    this.state_ = $state;
     this.mdToast_ = $mdToast;
     this.catalogService_ = catalogService;
-    this.items = this.catalogService_.getCatalog().items;
+    this.items = [];
+    this.catalogService_.getCatalog()
+      .promise.then(catalog => {
+        console.log('resolved');
+        this.items = catalog.items;
+      });
+    this.user = null;
+    this.catalogService_.getUser().promise.then(user => {
+      this.user = user;
+    });
   }
 
   addItem() {
@@ -14,6 +24,17 @@ class CatalogController {
         .textContent('Item added')
         .hideDelay(3000)
         .highlightClass('md-primary'));
+  }
+
+  login() {
+    this.catalogService_.login();
+  }
+
+  logout() {
+    this.catalogService_.logout().then(() => {
+      this.user = null;
+      this.state_.go('catalog');
+    });
   }
 }
 

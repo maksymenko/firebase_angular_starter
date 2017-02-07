@@ -1,6 +1,16 @@
+<md-toolbar layout="row" layout-align="space-between center">
+  <md-button ui-sref="catalog" ui-sref-active="active">
+    Catalog
+  </md-button>
+  <div>
+    <md-button ng-hide="$ctrl.user" ng-click="$ctrl.login()">Login</md-button>
+    <md-button ng-show="$ctrl.user" ng-click="$ctrl.logout()">Logout</md-button>
+    <md-button>{{$ctrl.user.displayName}}</md-button>
+  </div>
+</md-toolbar>
+
 <md-list>
-  <md-subheader
-      class="catalog-line-header">
+  <md-subheader class="catalog-line-header">
     <div layout="row">
       <div flex>
         sku
@@ -10,12 +20,10 @@
       </div>
       <div flex>
         price
-     </div>
+      </div>
     </div>
   </md-subheader>
-  <md-list-item 
-      ng-repeat="item in $ctrl.items" 
-      class="catalog-line" ng-click="null">
+  <md-list-item ng-repeat="item in $ctrl.items" class="catalog-line" ng-click="null">
     <div flex layout="row">
       <div flex>
         {{item.sku}}

@@ -32,7 +32,59 @@ $ npm install --save material-design-icons
 ### Add Firebase
 * Create project https://console.firebase.google.com/
     * click "Add Firebase to your web app" to copy settings
+* Add `firebase` dependency
+```
+npm install --save firebase
+```
 * Put firebase settings to configuratin json and rename:
 ```
 cp ./src/config/properties.json.template -> ./src/config/properties.json 
 ```
+* Initialize `firebase`
+```
+import * as firebase from "firebase";
+...
+const config = {
+      "apiKey": "${firebase.apiKey}",
+      "authDomain": "${firebase.authDomain}",
+      "databaseURL": "${firebase.databaseURL}",
+      "storageBucket": "${firebase.storageBucket}",
+      "messagingSenderId": "${firebase.messagingSenderId}"
+    };
+firebase.initializeApp(config);
+```
+#### Authentication
+* Enable sign-in method in "Authentication" section
+* Login
+```
+letvar provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithRedirect(provider);
+```
+* Logout
+```
+firebase.auth().signOut()
+```
+#### Listen data changes
+* use `on()` or `once()`
+```
+firebase.database().ref('items').on('value', snapshot => {
+  this.value = snapshot;
+});
+```
+* Other events (observers)
+    * child_added, child_changed, child_removed, child_moved
+#### Write data
+```
+let nextItemRef = firebase.database().ref().child('items').push();
+nextItemRef.set({
+  sku: 'sku_1',
+  name: 'item_1'
+});
+```
+
+### 3-way binding with `angularfire`.
+
+
+* **References**
+    * https://firebase.google.com/docs/
+    * https://github.com/firebase/quickstart-java 
