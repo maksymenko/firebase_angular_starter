@@ -4,11 +4,15 @@ class CatalogController {
     this.state_ = $state;
     this.mdToast_ = $mdToast;
     this.catalogService_ = catalogService;
-    this.items = this.catalogService_.getCatalog().items;
+    this.items = [];
   
     this.user = null;
-    this.catalogService_.getUser().promise.then(user => {
+
+    this.catalogService_.getAuth().$onAuthStateChanged(user => {
       this.user = user;
+      if (this.user) {
+        this.items = this.catalogService_.getCatalog().items;
+      } 
     });
   }
 
@@ -30,10 +34,7 @@ class CatalogController {
   }
 
   logout() {
-    this.catalogService_.logout().then(() => {
-      this.user = null;
-      this.state_.go('catalog');
-    });
+    this.catalogService_.logout();
   }
 }
 

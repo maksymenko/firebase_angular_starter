@@ -26,7 +26,7 @@
       </div>
     </div>
   </md-subheader>
-  <md-list-item ng-repeat="item in $ctrl.items" class="catalog-line" ng-click="null">
+  <md-list-item ng-if="$ctrl.user" ng-repeat="item in $ctrl.items" class="catalog-line" ng-click="null">
     <div flex layout="row">
       <div flex>
         {{item.sku}}
@@ -47,6 +47,6 @@
   </md-list-item>
 </md-list>
 
-<md-button class="md-fab md-accent" ng-click="$ctrl.addItem()">
+<md-button ng-if="$ctrl.user" class="md-fab md-accent" ng-click="$ctrl.addItem()">
   <md-icon>add</md-icon>
 </md-button>

@@ -14,6 +14,6 @@ export default angular.module('app', [
   .config(($urlRouterProvider) => {
     'ngInject';
 
-    $urlRouterProvider.otherwise('/catalog');
+   $urlRouterProvider.otherwise('/catalog');
   })
   .name;
