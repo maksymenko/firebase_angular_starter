@@ -38,7 +38,7 @@ npm install --save firebase
 ```
 * Put firebase settings to configuratin json and rename:
 ```
-cp ./src/config/properties.json.template -> ./src/config/properties.json 
+cp ./src/config/properties.json_template -> ./src/config/properties.json 
 ```
 * Initialize `firebase`
 ```
@@ -57,7 +57,7 @@ firebase.initializeApp(config);
 * Enable sign-in method in "Authentication" section
 * Login
 ```
-letvar provider = new firebase.auth.GoogleAuthProvider();
+let provider = new firebase.auth.GoogleAuthProvider();
 firebase.auth().signInWithRedirect(provider);
 ```
 * Logout
