@@ -83,8 +83,34 @@ nextItemRef.set({
 ```
 
 ### 3-way binding with `angularfire`.
+* Dependency
+```
+npm install -save angularfire
+```
+* Inject module
+```
+import angularfirebase from "angularfire";
+...
+ .module('myModule', [angularfirebase])
+```
+* Use $firebaseObject, $firebaseArray, or $firebaseAuth
+```
+  /* @ngInject */
+  constructor($firebaseArray) {
+    let catalogRef = this.db.ref().child('catalog');
+    this.items = $firebaseArray(catalogRef);
+  }
+    ...
+    this.items.$add(item);
+    ...
+    this.items.$remove(item);
+```
+
 
 
 * **References**
     * https://firebase.google.com/docs/
-    * https://github.com/firebase/quickstart-java 
+    * https://github.com/firebase/quickstart-java
+    * https://www.firebase.com/docs/web/libraries/angular/api.html
+    * https://github.com/firebase/angularfire
+    * week-end course https://www.udacity.com/course/firebase-in-a-weekend-by-google-android--ud0352

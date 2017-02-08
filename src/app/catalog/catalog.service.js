@@ -1,12 +1,12 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
+import angularfirebase from "angularfire";
 
 class CatalogService {
 
   /* @ngInject */
-  constructor($q) {
+  constructor($q, $firebaseArray) {
     this.q_ = $q;
     this.deferredUser = $q.defer();
-    this.deferredCatalog = $q.defer();
     const config = {
       "apiKey": "${firebase.apiKey}",
       "authDomain": "${firebase.authDomain}",
@@ -25,19 +25,8 @@ class CatalogService {
 
     this.db = firebase.database();
 
-    this.catalog = {items: []};
-    let catalogRef = this.db.ref('catalog');
-    catalogRef.on('value', snapshot => {
-      this.catalog.items = [];
-      snapshot.forEach(item => {
-        this.catalog.items.push({
-          sku: item.val().sku,
-          name: item.val().name,
-          price: item.val().price
-        });
-        this.deferredCatalog.resolve(this.catalog);
-      });
-    });
+    let catalogRef = this.db.ref().child('catalog');
+    this.catalog = {items: $firebaseArray(catalogRef)};
   }
 
   login() {
@@ -54,12 +43,7 @@ class CatalogService {
   }
 
   getCatalog() {
-    return this.deferredCatalog;
-  }
-
-  addItem(item) {
-    let newItemRef = this.db.ref().child('catalog').push();
-    newItemRef.set(item);
+    return this.catalog;
   }
 }
 

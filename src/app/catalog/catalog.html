@@ -21,6 +21,9 @@
       <div flex>
         price
       </div>
+      <div flex>
+        Remove
+      </div>
     </div>
   </md-subheader>
   <md-list-item ng-repeat="item in $ctrl.items" class="catalog-line" ng-click="null">
@@ -33,6 +36,12 @@
       </div>
       <div flex>
         {{item.price}}
+      </div>
+      <div flex>
+        <md-button class="md-fab md-mini md-primary"
+          ng-click="$ctrl.remove($index)">
+          <md-icon>clear</md-icon>
+        </md-button>
       </div>
     </div>
   </md-list-item>

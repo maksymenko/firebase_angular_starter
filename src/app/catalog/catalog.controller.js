@@ -4,12 +4,8 @@ class CatalogController {
     this.state_ = $state;
     this.mdToast_ = $mdToast;
     this.catalogService_ = catalogService;
-    this.items = [];
-    this.catalogService_.getCatalog()
-      .promise.then(catalog => {
-        console.log('resolved');
-        this.items = catalog.items;
-      });
+    this.items = this.catalogService_.getCatalog().items;
+  
     this.user = null;
     this.catalogService_.getUser().promise.then(user => {
       this.user = user;
@@ -17,13 +13,16 @@ class CatalogController {
   }
 
   addItem() {
-    this.catalogService_.addItem(
-      { sku: '111', name: 'test', price: '111.11' });
+    this.items.$add({ sku: '111', name: 'test', price: '111.11' });
     this.mdToast_.show(
       this.mdToast_.simple()
         .textContent('Item added')
         .hideDelay(3000)
         .highlightClass('md-primary'));
+  }
+
+  remove(index) { 
+    this.items.$remove(index);
   }
 
   login() {
