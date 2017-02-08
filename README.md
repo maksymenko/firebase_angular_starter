@@ -1,4 +1,4 @@
-# Under construction
+# Firebase with AngularJS.
 
 ## Quick start
 * Set Firebase configuration in `./src/config/properties.json`
